@@ -68,7 +68,7 @@ def send_all_save_the_dates(test_only=False, mark_as_sent=False):
 
 
 def send_save_the_date_to_party(party, test_only=False):
-    context = get_save_the_date_context(get_template_id_from_party(party))
+    context = get_save_the_date_context(0)
     recipients = party.guest_emails
     if not recipients:
         print('===== WARNING: no valid email addresses found for {} ====='.format(party))
@@ -78,25 +78,6 @@ def send_save_the_date_to_party(party, test_only=False):
             recipients,
             test_only=test_only
         )
-
-
-def get_template_id_from_party(party):
-    if party.type == 'formal':
-        # all formal guests get formal invites
-        return random.choice(['lions-head', 'ski-trip'])
-    elif party.type == 'dimagi':
-        # all non-formal dimagis get dimagi invites
-        return 'dimagi'
-    elif party.type == 'fun':
-        all_options = list(SAVE_THE_DATE_CONTEXT_MAP.keys())
-        all_options.remove('dimagi')
-        if party.category == 'ro':
-            # don't send the canada invitation to ro's crowd
-            all_options.remove('canada')
-        # otherwise choose randomly from all options for everyone else
-        return random.choice(all_options)
-    else:
-        return None
 
 
 def get_save_the_date_context(template_id):

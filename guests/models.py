@@ -5,12 +5,6 @@ import uuid
 from django.db import models
 from django.dispatch import receiver
 
-# these will determine the default formality of correspondence
-ALLOWED_TYPES = [
-    ('formal', 'formal'),
-    ('fun', 'fun'),
-    ('dimagi', 'dimagi'),
-]
 
 
 def _random_uuid():
@@ -22,7 +16,7 @@ class Party(models.Model):
     A party consists of one or more guests.
     """
     name = models.TextField()
-    type = models.CharField(max_length=10, choices=ALLOWED_TYPES)
+    # type = models.CharField(max_length=10, choices=ALLOWED_TYPES)
     category = models.CharField(max_length=20, null=True, blank=True)
     save_the_date_sent = models.DateTimeField(null=True, blank=True, default=None)
     save_the_date_opened = models.DateTimeField(null=True, blank=True, default=None)
@@ -30,8 +24,8 @@ class Party(models.Model):
     invitation_sent = models.DateTimeField(null=True, blank=True, default=None)
     invitation_opened = models.DateTimeField(null=True, blank=True, default=None)
     is_invited = models.BooleanField(default=False)
-    rehearsal_dinner = models.BooleanField(default=False)
-    is_attending = models.NullBooleanField(default=None)
+    # rehearsal_dinner = models.BooleanField(default=False)
+    is_attending = models.BooleanField(null=True, default=None)
     comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -54,12 +48,6 @@ class Party(models.Model):
         return list(filter(None, self.guest_set.values_list('email', flat=True)))
 
 
-MEALS = [
-    ('beef', 'cow'),
-    ('fish', 'fish'),
-    ('hen', 'hen'),
-    ('vegetarian', 'vegetable'),
-]
 
 
 class Guest(models.Model):
@@ -70,8 +58,7 @@ class Guest(models.Model):
     first_name = models.TextField()
     last_name = models.TextField(null=True, blank=True)
     email = models.TextField(null=True, blank=True)
-    is_attending = models.NullBooleanField(default=None)
-    meal = models.CharField(max_length=20, choices=MEALS, null=True, blank=True)
+    is_attending = models.BooleanField(null=True, default=None)
     is_child = models.BooleanField(default=False)
 
     @property
