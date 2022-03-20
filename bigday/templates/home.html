@@ -46,16 +46,10 @@
         <div class="header-content">
             <div class="header-content-inner">
                 <h1>We did it!!</h1>
-                {% comment %}
-                <hr>
-                <h2>It's wedding week!</h2>
-                <a href="#welcome" class="btn btn-info btn-xl page-scroll">Welcome</a>
-                <a href="#event" class="btn btn-primary btn-xl page-scroll">Friday</a>
-                <a href="#saturday-event" class="btn btn-success btn-xl page-scroll">Saturday</a>
-                {% endcomment %}
             </div>
         </div>
     </header>
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
     <section class="bg-info" id="welcome">
         <div class="container">
             <div class="row">
@@ -134,9 +128,6 @@
     <section id="other-stuff" class="bg-primary">
         {% include 'partials/misc.html' %}
     </section>
-    <section id="gifts">
-        {% include 'partials/gifts.html' %}
-    </section>
     <section id="story" class="bg-dark">
         {% include 'partials/story.html' %}
     </section>
@@ -157,14 +148,11 @@
             </div>
         </div>
     </section>
+</div>
     {% endblock %}
 {% endblock %}
 {% block page_js %}
     <!-- Plugin JavaScript -->
-    <!-- Easing is for the vertical scroll animations -->
-    <script src="{% static 'creative/js/jquery.easing.min.js' %}"></script>
-    <!-- Automatically fit text based on screen size.-->
-    <script src="{% static 'creative/js/jquery.fittext.js' %}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{% static 'creative/js/creative.js' %}"></script>
 {% endblock %}

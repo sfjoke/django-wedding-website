@@ -3,8 +3,6 @@ import datetime
 import uuid
 
 from django.db import models
-from django.dispatch import receiver
-
 
 
 def _random_uuid():
@@ -15,18 +13,11 @@ class Party(models.Model):
     """
     A party consists of one or more guests.
     """
-    name = models.TextField()
-    # type = models.CharField(max_length=10, choices=ALLOWED_TYPES)
-    category = models.CharField(max_length=20, null=True, blank=True)
-    save_the_date_sent = models.DateTimeField(null=True, blank=True, default=None)
-    save_the_date_opened = models.DateTimeField(null=True, blank=True, default=None)
-    invitation_id = models.CharField(max_length=32, db_index=True, default=_random_uuid, unique=True)
-    invitation_sent = models.DateTimeField(null=True, blank=True, default=None)
-    invitation_opened = models.DateTimeField(null=True, blank=True, default=None)
-    is_invited = models.BooleanField(default=False)
-    # rehearsal_dinner = models.BooleanField(default=False)
-    is_attending = models.BooleanField(null=True, default=None)
-    comments = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=30)
+    description = models.TextField(null=True, blank=True)
+    date = models.DateTimeField(null=True, blank=True, default=None)
+    rsvp_before = models.DateTimeField(null=True, blank=True, default=None)
+    
 
     def __str__(self):
         return 'Party: {}'.format(self.name)
@@ -48,16 +39,25 @@ class Party(models.Model):
         return list(filter(None, self.guest_set.values_list('email', flat=True)))
 
 
+class Invitation(models.Model):
+    invitation_id = models.CharField(max_length=32, db_index=True, default=_random_uuid, unique=True)
+    invitation_sent = models.DateTimeField(null=True, blank=True, default=None)
+    invitation_accepted = models.DateTimeField(null=True, blank=True, default=None)
+    invitation_text = models.TextField(null=True, blank=True)
+    invitation_rsvp_text = models.TextField(null=True, blank=True)
+    party = models.ForeignKey('Party', on_delete=models.CASCADE)
+    # guests = models.ManyToOneRel
 
 
 class Guest(models.Model):
     """
     A single guest
     """
-    party = models.ForeignKey('Party', on_delete=models.CASCADE)
-    first_name = models.TextField()
-    last_name = models.TextField(null=True, blank=True)
-    email = models.TextField(null=True, blank=True)
+    party = models.ForeignKey('Party', on_delete=models.CASCADE, related_name = "party")
+    invitation = models.ForeignKey('Invitation', blank=True, null=True, on_delete=models.CASCADE, related_name = "invitation")
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     is_attending = models.BooleanField(null=True, default=None)
     is_child = models.BooleanField(default=False)
 

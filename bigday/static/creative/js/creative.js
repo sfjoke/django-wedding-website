@@ -17,12 +17,11 @@
         event.preventDefault();
     });
 
-    // Highlight the top nav as scrolling occurs
-    // (specifically turns the links orange)
-    $('body').scrollspy({
-        target: '.navbar-fixed-top',
-        offset: 51
-    })
+
+    var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+        target: '.navbar-fixed-top'
+      })
+      
 
     // Closes the Responsive Menu on Menu Item Click
     $('.navbar-collapse ul li a').click(function() {
