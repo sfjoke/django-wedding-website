@@ -5,27 +5,29 @@
 {% endblock %}
 {% block page_content %}
     <div class="container" id="invitation-body">
-        <section class="video-container">
-            <div class="responsive-video">
-                <iframe src="https://www.youtube.com/embed/J_AIs7_Yu5A" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
-        <section class="col-md-6 text-center">
+        <div class="row">
+        <div class="col-md-6 text-center">
             <div id="invitation-details">
-            <h2>Zue and Luk Wedding</h2>
+            <h2>Karo and Tib Wedding</h2>
             <p class="lead">
-                July 2, 2016, at 4:30 pm<br>
-                Ravine Vineyard<br>
-                Niagara-on-the-Lake, ON, Canada
+                September 4, 2022, at 1:00 pm<br>
+                Kocanda Kravsko<br>
+                Kravsko 45, 671 51
+                Czech Republic
             </p>
             </div>
-        </section>
-        <section class="col-md-6">
+        </div>
+        <div class="col-md-6 text-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.3047679476026!2d15.985563415449063!3d48.928636703712435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d55233fbfb041%3A0x608e8346e516a08a!2zS29jYW5kYSB1Ynl0b3bDoW7DrQ!5e0!3m2!1sfr!2sat!4v1647879883040!5m2!1sfr!2sat"
+             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        </div>
+        <div class="col-md-12">
         <form data-toggle="validator" id="invitation-details" class="form-horizontal" method="post">
             <h2 id="rsvp-header" class="text-center">RSVP</h2>
             <div class="clearfix"></div>
             {% csrf_token %}
-            {% for guest in party.ordered_guests.all %}
+            {% for guest in guests %}
             <div class="form-group" data-is-child="{{ guest.is_child }}">
                 {% with 'attending-'|add:guest.unique_id as attending_label %}
                 <label for="{{ attending_label }}" class="col-sm-3 control-label">{{ guest.name }}</label>
@@ -39,7 +41,7 @@
             </div>
             {% endfor %}
             <div class="form-group col-sm-12">
-                <input type="text" name="comments" class="form-control" placeholder="Questions/comments/well wishes" >
+                <input type="text" name="comments" class="form-control" placeholder="Questions/comments" >
             </div>
             <div class="form-group">
                 <div class="text-center">
@@ -47,7 +49,7 @@
                 </div>
             </div>
         </form>
-        </section>
+    </div>
     </div>
 {% endblock %}
 {% block page_js %}

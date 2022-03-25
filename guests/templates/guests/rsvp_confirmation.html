@@ -6,10 +6,10 @@
 {% block page_content %}
     <div class="layer"></div>
     <div class="container" id="main">
-        <h2>Hi {{ party.name }}! Thanks for your response!</h2>
-        {% if party.any_guests_attending %}
+        <h2>Hi {% for guest in guests %}{{ guest.name }}{% endfor %}! Thanks for your response!</h2>
+        {% if guest.is_attending %}
             <p>
-                We can't wait to celebrate with you in Niagara!
+                We can't wait to celebrate with you in Kravsko!
             </p>
             <p>
                 If you've got a minute, you can help us out by filling in a <a href="http://goo.gl/forms/AFszTcpPRW">super quick survey</a> that will help us plan for the most fun and smooth event possible.
@@ -17,7 +17,7 @@
             </p>
         {% else %}
             <p>
-                We're sorry you won't be able to join us in Niagara.
+                We're sorry you won't be able to join us in Kravsko.
             </p>
             <p>
                 We look forward to catching up with you some other time!

@@ -2,10 +2,7 @@ import csv
 import io
 import uuid
 from guests.models import Party, Guest
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
 
 
 def import_guests(path):

@@ -41,12 +41,11 @@ class Party(models.Model):
 
 class Invitation(models.Model):
     invitation_id = models.CharField(max_length=32, db_index=True, default=_random_uuid, unique=True)
-    invitation_sent = models.DateTimeField(null=True, blank=True, default=None)
+    invitation_opened = models.DateTimeField(null=True, blank=True, default=None)
     invitation_accepted = models.DateTimeField(null=True, blank=True, default=None)
     invitation_text = models.TextField(null=True, blank=True)
     invitation_rsvp_text = models.TextField(null=True, blank=True)
     party = models.ForeignKey('Party', on_delete=models.CASCADE)
-    # guests = models.ManyToOneRel
 
 
 class Guest(models.Model):
@@ -60,6 +59,7 @@ class Guest(models.Model):
     email = models.CharField(max_length=100, null=True, blank=True)
     is_attending = models.BooleanField(null=True, default=None)
     is_child = models.BooleanField(default=False)
+    vegetarian_option_selected = models.BooleanField(default=False)
 
     @property
     def name(self):

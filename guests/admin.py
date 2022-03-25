@@ -20,8 +20,8 @@ class GuestAdmin(admin.ModelAdmin):
 
 
 class InvitationAdmin(admin.ModelAdmin):
-    list_display = ('invitation_id', 'invitation_sent', 'invitation_accepted', 'invitation_text', 'invitation_rsvp_text')
-    list_filter = ('invitation_sent', 'invitation_accepted')
+    list_display = ('invitation_id', 'invitation_opened', 'invitation_accepted', 'invitation_text', 'invitation_rsvp_text')
+    list_filter = ('invitation_opened', 'invitation_accepted')
     inlines = [GuestInline]
 
 admin.site.register(Party, PartyAdmin)
