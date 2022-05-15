@@ -67,7 +67,6 @@ The app comes with a built-in cross-client and mobile-friendly email template fo
 You can create multiple save the dates and send them out either randomly or by `Party` type (useful if you want to send formal
 invitations to some people and more playful ones to others).
 
-See `save_the_date.py` and `SAVE_THE_DATE_CONTEXT_MAP` for customizing your save the dates.
 
 ### Invitations and RSVPs
 

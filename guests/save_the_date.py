@@ -1,9 +1,7 @@
 from __future__ import unicode_literals, print_function
-from copy import copy
 from email.mime.image import MIMEImage
 import os
 from datetime import datetime
-import random
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -12,50 +10,6 @@ from guests.models import Party
 
 
 SAVE_THE_DATE_TEMPLATE = 'guests/email_templates/save_the_date.html'
-SAVE_THE_DATE_CONTEXT_MAP = {
-        'lions-head': {
-            'title': "Lion's Head",
-            'header_filename': 'hearts.png',
-            'main_image': 'lions-head.jpg',
-            'main_color': '#fff3e8',
-            'font_color': '#666666',
-        },
-        'ski-trip': {
-            'title': 'Ski Trip',
-            'header_filename': 'hearts.png',
-            'main_image': 'ski-trip.jpg',
-            'main_color': '#330033',
-            'font_color': '#ffffff',
-        },
-        'canada': {
-            'title': 'Canada!',
-            'header_filename': 'maple-leaf.png',
-            'main_image': 'canada-cartoon-resized.jpg',
-            'main_color': '#ea2e2e',
-            'font_color': '#e5ddd9',
-        },
-        'american-gothic': {
-            'title': 'American Gothic',
-            'header_filename': 'hearts.png',
-            'main_image': 'american-gothic.jpg',
-            'main_color': '#b6ccb5',
-            'font_color': '#000000',
-        },
-        'plunge': {
-            'title': 'The Plunge',
-            'header_filename': 'plunger.png',
-            'main_image': 'plunge.jpg',
-            'main_color': '#b4e6ff',
-            'font_color': '#000000',
-        },
-        'dimagi': {
-            'title': 'Dimagi',
-            'header_filename': 'commcare.png',
-            'main_image': 'join-us.jpg',
-            'main_color': '#003d71',
-            'font_color': '#d6d6d4',
-        }
-    }
 
 
 def send_all_save_the_dates(test_only=False, mark_as_sent=False):
@@ -81,10 +35,7 @@ def send_save_the_date_to_party(party, test_only=False):
 
 
 def get_save_the_date_context(template_id):
-    template_id = (template_id or '').lower()
-    if template_id not in SAVE_THE_DATE_CONTEXT_MAP:
-        template_id = 'lions-head'
-    context = copy(SAVE_THE_DATE_CONTEXT_MAP[template_id])
+    context = dict()
     context['name'] = template_id
     context['rsvp_address'] = settings.DEFAULT_WEDDING_REPLY_EMAIL
     context['site_url'] = settings.WEDDING_WEBSITE_URL

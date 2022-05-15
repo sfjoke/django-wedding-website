@@ -36,7 +36,7 @@
 
 
 body {
-    background: url('../images/invite-background.jpg') no-repeat center center fixed;
+    background: url('../images/mariage_carry.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -51,6 +51,7 @@ body {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    opacity: 0.95;
 }
 
 #footer {
