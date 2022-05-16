@@ -8,66 +8,147 @@
         <div class="row">
             <div class="col-md-6 text-center">
                 <div id="invitation-details">
-                <h2>Karo and Tib's Wedding</h2>
-                <p class="lead">
-                    September 4, 2022, 12:00 pm<br>
-                    Kocanda Kravsko<br>
-                    Kravsko 45, 671 51
-                    Czech Republic
-                </p>
+                    <h2>Karo and Tib's Wedding</h2>
+                    <h3>September 4, 2022, 12:00 pm</h3>
+                    <p class="lead">
+                        Kocanda Kravsko<br>
+                        Kravsko 45, 671 51
+                        Czech Republic
+                    </p>
+                    <p>
+                        <a href="/" target="blank">All information can be found on this website.</a>
+                    </p>
                 </div>
+                <canvas id='myCanvas' width='600' height='200'></canvas>
             </div>
             <div class="col-md-6 text-center">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.3047679476026!2d15.985563415449063!3d48.928636703712435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d55233fbfb041%3A0x608e8346e516a08a!2zS29jYW5kYSB1Ynl0b3bDoW7DrQ!5e0!3m2!1sfr!2sat!4v1647879883040!5m2!1sfr!2sat"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
         <div class="col-md-12">
-        <form id="invitation-details" class="form-horizontal" method="post">
-            <h2 id="rsvp-header" class="text-center">RSVP</h2>
-            <h4 id="rsvp-header" class="text-center">Please confirm your attendance and your meal preference</h2>
-            <div class="clearfix"></div>
-            {% csrf_token %}
-            {% for guest in guests %}
-            <div class="form-group" data-is-child="{{ guest.is_child }}">
-                {% with 'attending-'|add:guest.unique_id as attending_label %}
+            <form id="invitation-details" class="form-horizontal" method="post">
+                <h2 id="rsvp-header" class="text-center">RSVP</h2>
+                <h4 id="rsvp-header" class="text-center">Please confirm your attendance and your meal preference</h2>
+                <div class="clearfix"></div>
+                {% csrf_token %}
+                {% for guest in guests %}
+                <div class="form-group" data-is-child="{{ guest.is_child }}">
+                    {% with 'attending-'|add:guest.unique_id as attending_label %}
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label for="{{ attending_label }}" class="control-label">{{ guest.name }}</label>
+                        </div>
+                        <div class="col-lg-3 text-center">
+                            will
+                            <input class="form-check-input" type="radio" name="{{ attending_label }}" value="yes" {% if guest.is_attending %}checked="checked"{% endif %} required id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                attend
+                            </label>
+                            <input class="form-check-input" type="radio" name="{{ attending_label }}" value="no" {% if guest.is_attending == False %}checked="checked"{% endif %} required id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                not attend
+                            </label>
+                        </div>
+                        <div class="col-lg-1 text-right">
+                            <label>Menu:</label>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-select form-select-sm" aria-label="Menu">
+                                <option selected value="1">Standard</option>
+                                <option value="2">Vegetarian</option>
+                            </select>
+                        </div>
+                    </div>
+                    {% endwith %}
+                </div>
+                {% endfor %}
                 <div class="row">
-                    <div class="col-lg-3">
-                        <label for="{{ attending_label }}" class="control-label">{{ guest.name }}</label>
-                    </div>
-                    <div class="col-lg-3 text-center">
-                        will
-                        <input class="form-check-input" type="radio" name="{{ attending_label }}" value="yes" {% if guest.is_attending %}checked="checked"{% endif %} required id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            attend
-                        </label>
-                        <input class="form-check-input" type="radio" name="{{ attending_label }}" value="no" {% if guest.is_attending == False %}checked="checked"{% endif %} required id="flexRadioDefault2">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            not attend
-                        </label>
-                    </div>
-                    <div class="col-lg-1 text-right">
-                        <label>Menu:</label>
-                    </div>
-                    <div class="col-lg-3">
-                        <select class="form-select form-select-sm" aria-label="Menu">
-                            <option selected value="1">Standard</option>
-                            <option value="2">Vegetarian</option>
-                        </select>
+                    <div class="form-group col-lg-12">
+                        <input type="text" name="comments" class="form-control" placeholder="Questions/comments" >
                     </div>
                 </div>
-                {% endwith %}
-            </div>
-            {% endfor %}
-            <div class="form-group col-sm-12">
-                <input type="text" name="comments" class="form-control" placeholder="Questions/comments" >
-            </div>
-            <div class="form-group">
-                <div class="text-center">
-                    <input type="submit" class="btn btn-primary" value="Submit" />
+                <div class="row">
+                    <div class="form-group">
+                        <div class="text-center">
+                            <input type="submit" class="btn btn-primary" value="Submit" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+    
     </div>
-    </div>
+    <script>
+        const max_fireworks = 5, max_sparks = 50;
+        let canvas = document.getElementById('myCanvas');
+        let context = canvas.getContext('2d');
+        let fireworks = [];
+         
+        for (let i = 0; i < max_fireworks; i++) {
+          let firework = {
+            sparks: []
+          };
+          for (let n = 0; n < max_sparks; n++) {
+            let spark = {
+              vx: Math.random() * 5 + .5,
+              vy: Math.random() * 5 + .5,
+              weight: Math.random() * .3 + .03,
+              red: Math.floor(Math.random() * 2),
+              green: Math.floor(Math.random() * 2),
+              blue: Math.floor(Math.random() * 2)
+            };
+            if (Math.random() > .5) spark.vx = -spark.vx;
+            if (Math.random() > .5) spark.vy = -spark.vy;
+            firework.sparks.push(spark);
+          }
+          fireworks.push(firework);
+          resetFirework(firework);
+        }
+        window.requestAnimationFrame(explode);
+         
+        function resetFirework(firework) {
+          firework.x = Math.floor(Math.random() * canvas.width);
+          firework.y = canvas.height;
+          firework.age = 0;
+          firework.phase = 'fly';
+        }
+         
+        function explode() {
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          fireworks.forEach((firework,index) => {
+            if (firework.phase == 'explode') {
+                firework.sparks.forEach((spark) => {
+                for (let i = 0; i < 10; i++) {
+                  let trailAge = firework.age + i;
+                  let x = firework.x + spark.vx * trailAge;
+                  let y = firework.y + spark.vy * trailAge + spark.weight * trailAge * spark.weight * trailAge;
+                  let fade = i * 20 - firework.age * 2;
+                  let r = Math.floor(spark.red * fade);
+                  let g = Math.floor(spark.green * fade);
+                  let b = Math.floor(spark.blue * fade);
+                  context.beginPath();
+                  context.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',1)';
+                  context.rect(x, y, 4, 4);
+                  context.fill();
+                }
+              });
+              firework.age++;
+              if (firework.age > 100 && Math.random() < .05) {
+                resetFirework(firework);
+              }
+            } else {
+              firework.y = firework.y - 10;
+              for (let spark = 0; spark < 15; spark++) {
+                context.beginPath();
+                context.fillStyle = 'rgba(' + index * 50 + ',' + spark * 17 + ',0,1)';
+                context.rect(firework.x + Math.random() * spark - spark / 2, firework.y + spark * 4, 4, 4);
+                context.fill();
+              }
+              if (Math.random() < .001 || firework.y < 200) firework.phase = 'explode';
+            }
+          });
+          window.requestAnimationFrame(explode);
+        }
+        </script>
 {% endblock %}

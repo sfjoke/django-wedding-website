@@ -1,3 +1,4 @@
+{% load static %}
 <div class="container">
     <div class="row">
         <div class="col-lg-4">
@@ -6,8 +7,7 @@
             <h3 class="section-heading text-center">Paperless</h3>
             <hr class="light">
             <p>
-                This is a paperless wedding.
-                That means all of our invitations, and thank-you notes are being delivered digitally.
+                We wanted to have all of our invitations and thank-you notes being delivered digitally.
             </p>
             <p>
                 This is not really to save the planet (although it's cool), but rather to take advantage of the technology to reach everybody easily in different countries.
@@ -27,7 +27,7 @@
                 All rooms should include their own bathroom and toilet.
             </p>
             <p>
-                Kid’s corner is going to be included as well (please mark whether you are coming with a kid on the invitation).
+                Kid's corner is going to be included as well (please mark whether you are coming with a kid on the invitation).
             </p>
         </div>
         <div class="col-lg-4">
@@ -36,13 +36,13 @@
             <h3 class="section-heading text-center">Gifts</h3>
             <hr class="light">
             <p>
-                The best gift will be your presence at our wedding, but if you do want give us something, you can deposit it at this account:
+                The best gift will be your presence at our wedding, but if you do want give us something, you can deposit it on one of those accounts:
             </p>
             <p>
                 CZK: 1705668013/3030
             </p>
             <p>
-                EUR: 
+                EUR: <a href="{% static 'rib-boursorama-banque.pdf' %}" download>Bank details</a>
             </p>
         </div>
     </div>
