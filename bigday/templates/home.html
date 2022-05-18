@@ -5,6 +5,7 @@
     <link href="{% static 'bigday/css/creative.css' %}" rel="stylesheet">
 {% endblock %}
 {% block page_content %}
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="0" class="scrollspy-example" tabindex="0">
     <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand page-scroll" href="#page-top">{{ couple_name }}</a>
@@ -41,7 +42,7 @@
         </div>
     </header>
     <div>
-        <section class="bg-info" id="welcome">
+        <section class="bg-primary" id="welcome">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 col-lg-offset-2 text-center">
@@ -72,7 +73,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 class="section-heading">Our Story</h2>
+                        <h2 class="section-heading text-center">Our Story</h2>
                         <hr>
                         <p>
                             It all started with one crazy Erasmus evening in Madrid seven years ago. A loud Czech girl and a mysterious French boy having no idea that years later they would unite the country of beer, cynicism and socks in sandals with the country of wine, protesting about everything and dining for hours. And yet here we come!
@@ -154,6 +155,7 @@
         </section>
     </div>
     {% endblock %}
+</body>
 {% endblock %}
 {% block page_js %}
     <script src="{% static 'creative/js/creative.js' %}"></script>

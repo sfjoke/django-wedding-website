@@ -4,7 +4,7 @@
     <link href="{% static 'bigday/css/rsvp-confirmation.css' %}" rel="stylesheet" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block page_content %}
-    {% comment %} <div class="layer"></div> {% endcomment %}
+<body>
     <div class="container" id="main">
         <h2>Thanks for your response!</h2>
         {% if guests.count > 0 %}
@@ -26,4 +26,5 @@
             - Karolina and Thibault
         </p>
     </div>
+</body>
 {% endblock %}

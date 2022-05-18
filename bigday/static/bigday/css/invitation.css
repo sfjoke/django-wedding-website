@@ -25,7 +25,12 @@
     opacity: 1.0;
 }
 
-#invitation-details, #rsvp-form {
+#invitation-details {
+    margin-top: 2em;
+    padding: 1em;
+}
+
+#rsvp-form {
     margin-top: 2em;
     padding: 1em;
     -webkit-border-radius: 10px;
