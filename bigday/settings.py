@@ -123,7 +123,7 @@ WEDDING_DATE = '4 September 2022'
 
 # This is used in links in save the date / invitations
 WEDDING_WEBSITE_URL = 'https://karoandtib.sfjoke.com'
-WEDDING_CC_LIST = []  # put email addresses here if you want to cc someone on all your invitations
+# WEDDING_CC_LIST = []  # put email addresses here if you want to cc someone on all your invitations
 
 # change to a real email backend in production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

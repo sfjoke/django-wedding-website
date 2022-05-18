@@ -9,14 +9,14 @@
             <div class="col-md-6 text-center">
                 <div id="invitation-details">
                     <h2>Karo and Tib's Wedding</h2>
-                    <h3>September 4, 2022, 12:00 pm</h3>
+                    <h3>4 September 2022, 12:00 pm</h3>
                     <p class="lead">
                         Kocanda Kravsko<br>
                         Kravsko 45, 671 51
                         Czech Republic
                     </p>
                     <p>
-                        <a href="/" target="blank">All information can be found on this website.</a>
+                        <a href="/" target="blank">All the details are available here!</a>
                     </p>
                 </div>
                 <canvas id='myCanvas' width='600' height='200'></canvas>
@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-12">
             <form id="invitation-details" class="form-horizontal" method="post">
-                <h2 id="rsvp-header" class="text-center">RSVP</h2>
+                <h2 id="rsvp-header" class="text-center">You are invited!!! RSVP before 30/06</h2>
                 <h4 id="rsvp-header" class="text-center">Please confirm your attendance and your meal preference</h2>
                 <div class="clearfix"></div>
                 {% csrf_token %}
@@ -38,6 +38,9 @@
                     <div class="row">
                         <div class="col-lg-3">
                             <label for="{{ attending_label }}" class="control-label">{{ guest.name }}</label>
+                            {% if guest.is_child %}
+                                (c)
+                            {% endif %}
                         </div>
                         <div class="col-lg-3 text-center">
                             will
@@ -145,7 +148,7 @@
                 context.rect(firework.x + Math.random() * spark - spark / 2, firework.y + spark * 4, 4, 4);
                 context.fill();
               }
-              if (Math.random() < .001 || firework.y < 200) firework.phase = 'explode';
+              if (Math.random() < .005 || firework.y < 100) firework.phase = 'explode';
             }
           });
           window.requestAnimationFrame(explode);

@@ -42,8 +42,6 @@ class Party(models.Model):
 class Invitation(models.Model):
     invitation_id = models.CharField(max_length=32, db_index=True, default=_random_uuid, unique=True)
     invitation_opened = models.DateTimeField(null=True, blank=True, default=None)
-    invitation_accepted = models.DateTimeField(null=True, blank=True, default=None)
-    invitation_text = models.TextField(null=True, blank=True)
     invitation_rsvp_text = models.TextField(null=True, blank=True)
     party = models.ForeignKey('Party', on_delete=models.CASCADE)
 
@@ -63,7 +61,10 @@ class Guest(models.Model):
 
     @property
     def name(self):
-        return u'{} {}'.format(self.first_name, self.last_name)
+        if self.last_name:
+            return u'{} {}'.format(self.first_name, self.last_name)
+        else:
+            return self.first_name
 
     @property
     def unique_id(self):

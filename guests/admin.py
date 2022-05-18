@@ -4,14 +4,14 @@ from .models import Guest, Party, Invitation
 
 class GuestInline(admin.TabularInline):
     model = Guest
-    fields = ('first_name', 'last_name', 'email', 'is_attending', 'is_child', 'party')
-    # readonly_fields = ('first_name', 'last_name', 'email')
 
 
 class PartyAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'date', 'rsvp_before')
     list_filter = ()
-    inlines = [GuestInline]
+    inlines = [
+        GuestInline,
+    ]
 
 
 class GuestAdmin(admin.ModelAdmin):
@@ -20,9 +20,17 @@ class GuestAdmin(admin.ModelAdmin):
 
 
 class InvitationAdmin(admin.ModelAdmin):
-    list_display = ('invitation_id', 'invitation_opened', 'invitation_accepted', 'invitation_text', 'invitation_rsvp_text')
-    list_filter = ('invitation_opened', 'invitation_accepted')
-    inlines = [GuestInline]
+    inlines = [
+        GuestInline,
+    ]
+    list_display = ('guest_names', 'invitation_id', 'invitation_opened', 'invitation_rsvp_text')
+    def xstr(self, s):
+        return '' if s is None else ' '+str(s)
+
+    def guest_names(self, obj):
+        guests = Guest.objects.filter(invitation=obj)
+        names = ', '.join([g.first_name + self.xstr(g.last_name) for g in guests])
+        return names
 
 admin.site.register(Party, PartyAdmin)
 admin.site.register(Guest, GuestAdmin)
