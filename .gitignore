@@ -1,7 +1,7 @@
 *~
 *.pyc
-localsettings.py
+bigday/settings/prod.py
 *.sqlite3
-static_root
+static
 data/
 env/

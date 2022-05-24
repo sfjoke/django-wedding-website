@@ -23,17 +23,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.sitemaps",
     'guests.apps.GuestsConfig',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'bigday.urls'
@@ -101,12 +102,30 @@ USE_L10N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = 'static_root'
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, 'static'),
+]
+
+# ManifestStaticFilesStorage is recommended in production, to prevent outdated
+# Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
+# See https://docs.djangoproject.com/en/3.0/ref/contrib/staticfiles/#manifeststaticfilesstorage
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join('bigday', 'static'),
-)
+
+# STATIC_ROOT = 'static_root'
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = (
+#     os.path.join('bigday', 'static'),
+# )
 
 # This is used in a few places where the names of the couple are used
 BRIDE_AND_GROOM = 'Karolina and Thibault'
@@ -122,15 +141,9 @@ WEDDING_LOCATION = 'Kravsko, Czech Republic'
 WEDDING_DATE = '4 September 2022'
 
 # This is used in links in save the date / invitations
-WEDDING_WEBSITE_URL = 'https://karoandtib.sfjoke.com'
-# WEDDING_CC_LIST = []  # put email addresses here if you want to cc someone on all your invitations
+WEDDING_WEBSITE_URL = 'https://karolinaandthibault.sfjoke.com'
 
 # change to a real email backend in production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-try:
-    from .localsettings import *
-except ImportError:
-    pass

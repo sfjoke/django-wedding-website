@@ -23,7 +23,7 @@ class InvitationAdmin(admin.ModelAdmin):
     inlines = [
         GuestInline,
     ]
-    list_display = ('guest_names', 'invitation_id', 'invitation_opened', 'invitation_rsvp_text')
+    list_display = ('guest_names', 'invit_url', 'invitation_opened', 'invitation_rsvp_text')
     def xstr(self, s):
         return '' if s is None else ' '+str(s)
 
@@ -31,6 +31,9 @@ class InvitationAdmin(admin.ModelAdmin):
         guests = Guest.objects.filter(invitation=obj)
         names = ', '.join([g.first_name + self.xstr(g.last_name) for g in guests])
         return names
+    
+    def invit_url(self, obj):
+        return 'https://karolinaandthibault.sfjoke.com/invite/' + obj.invitation_id
 
 admin.site.register(Party, PartyAdmin)
 admin.site.register(Guest, GuestAdmin)
