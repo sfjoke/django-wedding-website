@@ -58,6 +58,7 @@ class Guest(models.Model):
     is_attending = models.BooleanField(null=True, default=None)
     is_child = models.BooleanField(default=False)
     vegetarian_option_selected = models.BooleanField(default=False)
+    is_staying = models.BooleanField(default=True)
 
     @property
     def name(self):

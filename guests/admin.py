@@ -15,8 +15,8 @@ class PartyAdmin(admin.ModelAdmin):
 
 
 class GuestAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'party', 'email', 'is_attending', 'is_child')
-    list_filter = ('is_attending', 'is_child')
+    list_display = ('first_name', 'last_name', 'is_attending', 'is_child', 'is_staying', 'vegetarian_option_selected')
+    list_filter = ('is_attending', 'is_child', 'is_staying', 'vegetarian_option_selected')
 
 
 class InvitationAdmin(admin.ModelAdmin):
