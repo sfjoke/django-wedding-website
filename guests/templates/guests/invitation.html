@@ -16,15 +16,13 @@
                         Kravsko 45, 671 51
                         Czech Republic
                     </p>
-                    <p>
-                        <a href="/" target="blank">All the details are available here!</a>
-                    </p>
+                    <a href="/" target="blank"><div class="btn btn-primary">All the details are available here!</div></a>
                 </div>
                 <canvas id='myCanvas' width='600' height='200'></canvas>
             </div>
-            <div class="col-md-6 text-center">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.3047679476026!2d15.985563415449063!3d48.928636703712435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d55233fbfb041%3A0x608e8346e516a08a!2zS29jYW5kYSB1Ynl0b3bDoW7DrQ!5e0!3m2!1sfr!2sat!4v1647879883040!5m2!1sfr!2sat"
-                width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <div class="col-md-6 embed-responsive embed-responsive-4by3">
+                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2621.3047679476026!2d15.985563415449063!3d48.928636703712435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470d55233fbfb041%3A0x608e8346e516a08a!2zS29jYW5kYSB1Ynl0b3bDoW7DrQ!5e0!3m2!1sfr!2sat!4v1647879883040!5m2!1sfr!2sat"
+                width='600' height='400' allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
         <div class="col-md-12">
@@ -40,19 +38,22 @@
                         <div class="col-lg-3">
                             <label for="{{ attending_label }}" class="control-label">{{ guest.name }}</label>
                             {% if guest.is_child %}
-                                (c)
+                                <i class="fa-solid fa-child"></i>
                             {% endif %}
                         </div>
-                        <div class="col-lg-3 text-center">
-                            will
-                            <input class="form-check-input" type="radio" name="{{ attending_label }}" value="yes" {% if guest.is_attending %}checked="checked"{% endif %} required id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                attend
-                            </label>
-                            <input class="form-check-input" type="radio" name="{{ attending_label }}" value="no" {% if guest.is_attending == False %}checked="checked"{% endif %} required id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                not attend
-                            </label>
+                        <div class="col-lg-3">
+                            <div>
+                                <input class="form-check-input" type="radio" name="{{ attending_label }}" value="yes" {% if guest.is_attending %}checked="checked"{% endif %} required id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Yes, I will be there!
+                                </label>
+                            </div>
+                            <div>
+                                <input class="form-check-input" type="radio" name="{{ attending_label }}" value="no" {% if guest.is_attending == False %}checked="checked"{% endif %} required id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Sorry, can't make it :(
+                                </label>
+                            </div>
                         </div>
                         <div class="col-lg-1 text-right">
                             <label>Menu:</label>
